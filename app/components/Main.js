@@ -3,15 +3,18 @@ import Nav from './Nav';
 import Category from './Category';
 import Summary from './Summary';
 import 'whatwg-fetch';
+import {Link} from 'react-router';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
 
     this.updateVotes = this.updateVotes.bind(this);
+
     this.state = {
       jsonData: [],
-      votes: []
+      votes: [],
+      disabled: true
     };
   }
   componentDidMount() {
@@ -33,15 +36,16 @@ class Main extends React.Component {
       console.log(this.state.jsonData);
     });
   }
-  updateVotes(category, choice) {
+  updateVotes(category, choice, imageURL) {
     // let newVotes = this.state.votes;
-    let newVote = {category: category, choice: choice};
+    let newVote = {category: category, choice: choice, image: imageURL};
     let voteData = this.state.votes;
     let keyExists = false;
 
     voteData.map(function(element, index) {
       if (voteData[index].category === newVote.category) {
         voteData[index].choice = newVote.choice;
+        voteData[index].imageURL = newVote.imageURL;
         keyExists = true;
       }
     });
@@ -52,8 +56,13 @@ class Main extends React.Component {
 
     this.setState({
       votes: voteData
-    }, function() {
-      console.log(this.state.votes);
+    }, () => {
+      this.updateDisableState();
+    });
+  }
+  updateDisableState() {
+    this.setState({
+      disabled: false
     });
   }
   render() {
@@ -63,25 +72,31 @@ class Main extends React.Component {
         <h1>Welcome! Select your nominee for each of the following categories!</h1>
         <br /><br />
 
-        {this.state.jsonData.map(function(element, index) {
-          return <Category
-            jsonData={element}
-            key={index}
-            updateVotes={this.updateVotes} />;
-        }, this)}
-
-        <br /><br />
-
-        <h1>Your votes</h1>
-        <div className="list-group">
-          {this.state.votes.map(function(element, index) {
-            return <Summary
-              category={element.category}
-              choice={element.choice}
-              key={index} />;
+        <section className="Category">
+          {this.state.jsonData.map(function(element, index) {
+            return <Category
+              jsonData={element}
+              key={index}
+              updateVotes={this.updateVotes} />;
           }, this)}
-        </div>
-        <br /><br />
+        </section>
+
+        <section className="Summary">
+          <h1>Your votes</h1>
+          <div className="list-group">
+            {this.state.votes.map(function(element, index) {
+              return <Summary
+                category={element.category}
+                choice={element.choice}
+                key={index} />;
+            }, this)}
+          </div>
+
+          <Link to={'/submit'}>
+            <button type="button" className="btn btn-primary" disabled={this.state.disabled}>Click here to confirm!</button>
+          </Link>
+        </section>
+
       </div>
     );
   }

@@ -4,9 +4,8 @@ import VoteItem from './VoteItem';
 const Category = ({jsonData, updateVotes}) => {
   return (
     <div>
-      <br />
+
       <h1>{jsonData.Title}</h1>
-      <br />
 
       <div className="card-group">
         <div className="flex-container">

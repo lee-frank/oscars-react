@@ -9,17 +9,13 @@ class VoteItem extends React.Component {
     }
     componentDidMount() {
       toastr.options = {
-        closeButton: true,
-        debug: false,
-        newestOnTop: false,
-        progressBar: true,
         positionClass: 'toast-bottom-right',
         preventDuplicates: true
       };
     }
     handleVote() {
-      this.props.updateVotes(this.props.category, this.props.jsonData.Content1);
-      toastr.success(this.props.jsonData.Content1 + ' for ' + this.props.title, 'You voted:', {timeOut: 5000});
+      this.props.updateVotes(this.props.category, this.props.jsonData.Content1, this.props.jsonData.Image.Url);
+      toastr.success(this.props.jsonData.Content1 + ' for ' + this.props.category, 'You voted:');
     }
     render() {
       return (
