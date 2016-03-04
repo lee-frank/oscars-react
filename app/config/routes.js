@@ -5,7 +5,6 @@ import {browserHistory, Router, Route} from 'react-router';
 export default (
     <Router history={browserHistory}>
       <Route path="/" component={Main}>
-        <Route path="confirm/:token" component={Main} />
       </Route>
     </Router>
 );

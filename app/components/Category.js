@@ -1,7 +1,7 @@
 import React from 'react';
 import VoteItem from './VoteItem';
 
-const Category = ({jsonData}) => {
+const Category = ({jsonData, updateVotes}) => {
   return (
     <div>
       <h1>{jsonData.Title}</h1>
@@ -9,8 +9,12 @@ const Category = ({jsonData}) => {
       <div className="card-group">
         <div className="flex-container">
             {jsonData.VoteItems.map(function(element, index) {
-              return <VoteItem title={jsonData.Title} jsonData={element} key={index} />;
-            })}
+              return <VoteItem
+                jsonData={element}
+                key={index}
+                title={jsonData.Title}
+                updateVotes={updateVotes} />;
+            }, this)}
         </div>
       </div>
 
@@ -19,7 +23,8 @@ const Category = ({jsonData}) => {
 };
 
 Category.propTypes = {
-  jsonData: React.PropTypes.object
+  jsonData: React.PropTypes.object,
+  updateVotes: React.PropTypes.func
 };
 
 export default Category;

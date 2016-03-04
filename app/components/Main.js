@@ -58,8 +58,11 @@ class Main extends React.Component {
         <h1>Welcome! Select your nominee for each of the following categories!</h1>
         <br /><br />
         {this.state.jsonData.map(function(element, index) {
-          return <Category jsonData={element} key={index} />;
-        })}
+          return <Category
+            jsonData={element}
+            key={index}
+            updateVotes={this.updateVotes} />;
+        }, this)}
       </div>
     );
   }
