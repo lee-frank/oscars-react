@@ -1,8 +1,8 @@
-# Proxy Confirmation App
+# oscars-react App
 
 ### Instructions
 
 ```bash
 npm install
-webpack -w
+webpack-dev-server
 ```
