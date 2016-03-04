@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from './Nav';
 import Category from './Category';
+import Summary from './Summary';
 import 'whatwg-fetch';
 
 class Main extends React.Component {
@@ -49,7 +50,11 @@ class Main extends React.Component {
       voteData.push(newVote);
     }
 
-    console.log(voteData);
+    this.setState({
+      votes: voteData
+    }, function() {
+      console.log(this.state.votes);
+    });
   }
   render() {
     return (
@@ -57,12 +62,26 @@ class Main extends React.Component {
         <Nav />
         <h1>Welcome! Select your nominee for each of the following categories!</h1>
         <br /><br />
+
         {this.state.jsonData.map(function(element, index) {
           return <Category
             jsonData={element}
             key={index}
             updateVotes={this.updateVotes} />;
         }, this)}
+
+        <br /><br />
+
+        <h1>Your votes</h1>
+        <div className="list-group">
+          {this.state.votes.map(function(element, index) {
+            return <Summary
+              category={element.category}
+              choice={element.choice}
+              key={index} />;
+          }, this)}
+        </div>
+        <br /><br />
       </div>
     );
   }
