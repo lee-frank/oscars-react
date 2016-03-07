@@ -24232,7 +24232,7 @@
 	    value: function loadJson() {
 	      var _this2 = this;
 
-	      fetch('/app/assets/data.json').then(function (response) {
+	      fetch('data.json').then(function (response) {
 	        return response.json();
 	      }).then(function (data) {
 	        return _this2.updateState(data);
