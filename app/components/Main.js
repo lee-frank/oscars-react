@@ -24,7 +24,7 @@ class Main extends React.Component {
   //   this.loadJson(nextProps);
   // }
   loadJson() {
-    fetch('/app/assets/data.json')
+    fetch('data.json')
       .then(response => response.json())
       .then(data => this.updateState(data))
       .catch(err => console.log(err));

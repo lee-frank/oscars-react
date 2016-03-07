@@ -1,0 +1,4 @@
+[submodule "www"]
+	path = www
+	url = https://github.com/lee-frank/oscars-react.git
+	branch = gh-pages
